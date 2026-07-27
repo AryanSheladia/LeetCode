@@ -1,10 +1,5 @@
-SELECT (
-    SELECT Salary
-    FROM (
-        SELECT Salary,
-               DENSE_RANK() OVER (ORDER BY Salary DESC) AS rnk
-        FROM Employee
-    ) s
-    WHERE rnk = 2
-    LIMIT 1
-) AS SecondHighestSalary;
+select(
+    select distinct salary from Employee
+    order by salary desc
+    limit 1 offset 1
+) as SecondHighestSalary;
