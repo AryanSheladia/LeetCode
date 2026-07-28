@@ -1,5 +1,10 @@
 select(
-    select distinct salary from Employee
-    order by salary desc
-    limit 1 offset 1
+    select salary
+    from (
+        select salary,
+        dense_rank() over (order by salary desc) as rnk
+        from Employee
+    ) s
+    where rnk = 2
+    limit 1
 ) as SecondHighestSalary;
